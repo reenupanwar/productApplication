@@ -10,6 +10,8 @@ export class PokemonListComponent implements OnInit {
 
   constructor(public restApi: PokemonListService) { }
   Pokemon: any = [];
+  currentPage = 1;
+  page = {};
 
   ngOnInit() {
     this.loadPokemons()
@@ -20,6 +22,14 @@ export class PokemonListComponent implements OnInit {
   return this.restApi.getPokemon().subscribe((data: {}) => {
   this.Pokemon = data;
   })
+  }
+
+  selectedPageListender(parameter) {
+     console.log(parameter,"----");
+      return this.restApi.getPokemonwithQuery(parameter).subscribe((data: {}) => {
+      this.Pokemon = data;
+      })
+  
   }
 
 }

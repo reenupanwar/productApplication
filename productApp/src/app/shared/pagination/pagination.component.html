@@ -1,0 +1,13 @@
+<div class="pagination" [class.disable]="!totalPage">
+    <span class="text"> Page</span> 
+   <div class="item">
+     <span
+        [ngClass] = "{'active' : paginatePrev && totalPage}" 
+        (click)="changePageNumber(currentPage,-1, paginatePrev)"> <span class="action" aria-hidden="true">&laquo;</span> </span>
+     <span class="pagination__count"> <span [class.active]="currentPage">{{currentPage}}</span>  / {{totalPage}} </span>
+     <span
+        [ngClass] = "{'active' : paginateNext && totalPage}" 
+        (click)="changePageNumber(currentPage,+1, paginateNext)"> <span class="action" aria-hidden="true">&raquo;</span></span>
+   </div>
+ </div>
+

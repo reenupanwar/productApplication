@@ -28,6 +28,15 @@ export class PokemonListService {
         catchError(this.handleError)
       )
   }
+
+   // HttpClient API get() method => Fetch pokemon list
+   getPokemonwithQuery(url): Observable<Pokemon> {
+    return this.http.get<Pokemon>(url)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
   // HttpClient API get() method => Fetch pokemon
   getPokemonDetail(id): Observable<Pokemon> {
     return this.http.get<Pokemon>(this.apiURL + '/' + id)

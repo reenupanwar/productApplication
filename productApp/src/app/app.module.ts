@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokemonListComponent } from './pokemon/pokemon-list/pokemon-list.component';
 import { PokemonDetailComponent } from './pokemon/pokemon-detail/pokemon-detail.component';
+import { PaginationComponent } from './shared/pagination/pagination.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { PokemonDetailComponent } from './pokemon/pokemon-detail/pokemon-detail.
     HeaderComponent,
     PokemonComponent,
     PokemonListComponent,
-    PokemonDetailComponent
+    PokemonDetailComponent,
+    PaginationComponent
   ],
   imports: [
     HttpClientModule,

@@ -2,8 +2,13 @@
   pokemon-list works!
 </p>
 <div *ngIf="Pokemon.length !== 0">
-  <h3 class="mb-3 text-center">Pokemon List</h3>
-  <div class="col-md-12">
+  <h3 class="mb-3">Pokemon List</h3>
+  
+  <div class="col-md-6">
+    <div class="mb-3 float-right">
+        <app-pagination [totalPage]="Pokemon.count" [currentPage]="currentPage" [paginateNext] = "Pokemon.next"
+        [paginatePrev] = "Pokemon.previous" (selectedPage)="selectedPageListender($event)"></app-pagination>
+    </div>
   <table class="table table-bordered">
   <thead>
   <tr>
