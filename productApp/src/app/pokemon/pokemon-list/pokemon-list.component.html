@@ -1,0 +1,22 @@
+<p>
+  pokemon-list works!
+</p>
+<div *ngIf="Pokemon.length !== 0">
+  <h3 class="mb-3 text-center">Pokemon List</h3>
+  <div class="col-md-12">
+  <table class="table table-bordered">
+  <thead>
+  <tr>
+  <th scope="col">Name</th>
+  <th scope="col">Url</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr (click)="getDetails(pokemon)" *ngFor="let pokemon of Pokemon.results">
+  <td>{{pokemon.name}}</td>
+  <td>{{pokemon.url}}</td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
+  </div>
