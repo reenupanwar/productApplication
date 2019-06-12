@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 import { Pokemon } from '../pokemon/pokemon';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonListService {
+  private messageSource = new BehaviorSubject('');
+  currentMessage = this.messageSource.asObservable();
 
   apiURL = 'https://pokeapi.co/api/v2/pokemon/';
   constructor(private http: HttpClient) { }
@@ -38,10 +41,11 @@ export class PokemonListService {
       )
   }
   // HttpClient API get() method => Fetch pokemon
-  getPokemonDetail(id): Observable<Pokemon> {
-    return this.http.get<Pokemon>(this.apiURL + '/' + id)
-      .pipe(
-        retry(1),
+  getPokemonDetail(name:string): Observable<Pokemon> {
+    return this.http.get<Pokemon>(this.apiURL + name)
+      .pipe( map((response: any) => {
+        return response;
+      }),
         catchError(this.handleError)
       )
   }
@@ -59,5 +63,9 @@ export class PokemonListService {
     }
     window.alert(errorMessage);
     return throwError(errorMessage);
+  }
+
+  changeMessage(message: string) {
+    this.messageSource.next(message)
   }
 }

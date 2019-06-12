@@ -1,10 +1,11 @@
-<p>
-  pokemon-list works!
-</p>
+
 <div *ngIf="Pokemon.length !== 0">
   <h3 class="mb-3">Pokemon List</h3>
   
   <div class="col-md-6">
+      <div class="search-hero float-left">
+          <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Start searching by name ">
+        </div>
     <div class="mb-3 float-right">
         <app-pagination [totalPage]="Pokemon.count" [currentPage]="currentPage" [paginateNext] = "Pokemon.next"
         [paginatePrev] = "Pokemon.previous" (selectedPage)="selectedPageListender($event)"></app-pagination>
@@ -17,7 +18,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr (click)="getDetails(pokemon)" *ngFor="let pokemon of Pokemon.results">
+  <tr (click)="getDetails(pokemon.name)" *ngFor="let pokemon of Pokemon.results| filter:searchText">
   <td>{{pokemon.name}}</td>
   <td>{{pokemon.url}}</td>
   </tr>

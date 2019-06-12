@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
+
 import { PokemonListService } from 'src/app/services/pokemon-list.service';
+import { Pokemon } from '../pokemon';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -8,10 +12,18 @@ import { PokemonListService } from 'src/app/services/pokemon-list.service';
 })
 export class PokemonListComponent implements OnInit {
 
-  constructor(public restApi: PokemonListService) { }
+   // Output
+   message:string;
+ @Output() selectedPokemon = new EventEmitter<string>();
+
+  constructor(public restApi: PokemonListService,
+    private router: Router,
+    private route: ActivatedRoute,) { }
   Pokemon: any = [];
+ // selectedPokemon:Pokemon;
   currentPage = 1;
   page = {};
+  searchText;
 
   ngOnInit() {
     this.loadPokemons()
@@ -30,6 +42,11 @@ export class PokemonListComponent implements OnInit {
       this.Pokemon = data;
       })
   
+  }
+
+  getDetails(name) {
+    this.router.navigate(['pokemon/' + name]);
+
   }
 
 }
