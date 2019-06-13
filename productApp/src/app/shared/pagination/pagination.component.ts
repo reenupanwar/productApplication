@@ -32,8 +32,8 @@ export class PaginationComponent {
   }
 
   changePageLimit(limit: any) {
-   // this.currentPage = 1;
-    this.totalPage = this.totalPage / limit;
+    this.currentPage = 1;
+    //this.totalPage = this.totalPage / limit;
     this.selectedPage.emit(limit);
 
   }

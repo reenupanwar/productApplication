@@ -62,7 +62,6 @@ export class PokemonListComponent implements OnInit {
       })
 
     }
-    console.log("totalpage--", this.totalPage)
 
   }
 
