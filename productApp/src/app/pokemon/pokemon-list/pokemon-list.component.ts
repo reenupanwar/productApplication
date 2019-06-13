@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { PokemonListService } from 'src/app/services/pokemon-list.service';
 import { Pokemon } from '../pokemon';
+import { isNumber } from 'util';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -12,36 +13,57 @@ import { Pokemon } from '../pokemon';
 })
 export class PokemonListComponent implements OnInit {
 
-   // Output
-   message:string;
- @Output() selectedPokemon = new EventEmitter<string>();
+  // Output
+  message: string;
+  @Output() selectedPokemon = new EventEmitter<string>();
 
   constructor(public restApi: PokemonListService,
     private router: Router,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute, ) { }
   Pokemon: any = [];
- // selectedPokemon:Pokemon;
+  // selectedPokemon:Pokemon;
   currentPage = 1;
   page = {};
+  limit = 20;
+  totalPage;
   searchText;
+  loading:boolean;
 
   ngOnInit() {
+    this.loading = true;
     this.loadPokemons()
-    }
+  }
 
-    // Get employees list
-    loadPokemons() {
-  return this.restApi.getPokemon().subscribe((data: {}) => {
-  this.Pokemon = data;
-  })
+  // Get employees list
+  loadPokemons() {
+    return this.restApi.getPokemon().subscribe((data: {}) => {
+      this.Pokemon = data;
+      this.totalPage = Math.ceil(this.Pokemon.count / this.limit);
+      this.loading = false;
+    })
   }
 
   selectedPageListender(parameter) {
-     console.log(parameter,"----");
-      return this.restApi.getPokemonwithQuery(parameter).subscribe((data: {}) => {
-      this.Pokemon = data;
+    this.loading = true;
+    if (isNumber(parameter)) {
+      this.limit = parameter;
+      return this.restApi.getPokemonwithLimit(parameter).subscribe((data: {}) => {
+        this.Pokemon = data;
+        this.totalPage = Math.ceil(this.Pokemon.count / this.limit);
+        this.loading = false;
+
       })
-  
+    }
+    else {
+      return this.restApi.getPokemonwithQuery(parameter).subscribe((data: {}) => {
+        this.Pokemon = data;
+        this.totalPage = Math.ceil(this.Pokemon.count / this.limit);
+        this.loading = false;
+      })
+
+    }
+    console.log("totalpage--", this.totalPage)
+
   }
 
   getDetails(name) {

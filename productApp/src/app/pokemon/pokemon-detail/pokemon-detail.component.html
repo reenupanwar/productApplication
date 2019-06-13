@@ -1,9 +1,22 @@
-<table class="table table-bordered">
+<div *ngIf="!loading;else other_content">
+
+
+<nav aria-label="breadcrumb mt-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/pokemon']" >Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/pokemon']">Pokemon</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{pokemonData.name}}</li>
+    </ol>
+  </nav>
+
+
+
+<table class="table table-bordered pokemon">
   <thead>
     <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Value</th>
+      <th  width="20%">Name</th>
+      <th  width="30%">Description</th>
+      <th  width="50%">Value</th>
     </tr>
   </thead>
 
@@ -138,46 +151,150 @@
       </td>
     </tr>
     <tr>
-        <td>Forms</td>
-        <td>A list of forms this Pokémon can take on.</td>
+        <td>Types</td>
+        <td>	 A list of details showing types this Pokémon has.</td>
         <td>
           <table>
             <thead>
               <tr>
+                  <th>
+                      Slot
+                    </th>
                 <th>
                   Name
                 </th>
-                <th>
-                  Url
-                </th>
+                
               </tr>
             </thead>
-            <tr *ngFor="let form of pokemonData.forms|textFilter">
-              <td *ngFor='let key of form[1] |textFilter'>
-                {{key[1]}}
+            <tr *ngFor="let type of pokemonData.types|textFilter">
+              <td *ngFor='let key of type[1] |textFilter'>
+                 <span *ngIf="key[0] != 'type'"> {{key[1]}}</span>
+                <span *ngFor='let key2 of key[1] |textFilter'>
+                    <span *ngIf="key2[0]==  'name'">{{key2[1]}}</span>
+                  </span>
               </td>
             </tr>
           </table>
         </td>
       </tr>
+      <tr>
+          <td>Sprites</td>
+          <td>	A set of sprites used to depict this Pokémon in the game.</td>
+          <td>
+            <table class="table-sm">
+              <thead>
+                <tr>
+                  
+                  <th>
+                    Name
+                  </th>
+                  <th >
+                      Value
+                    </th>
+                  
+                </tr>
+              </thead>
+              <tr *ngFor="let sprite of pokemonData.sprites|textFilter">
+                <td> 
+                    {{sprite[0]}}
+                </td>
+                <td class="break-word"> 
+                   <span *ngIf="sprite[1]"> {{sprite[1]}}</span> 
+                   <span *ngIf="!sprite[1]"> Null</span> 
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      <tr>
+          <td>Stats</td>
+          <td>A list of base stat values for this Pokémon.</td>
+          <td>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Base Stat
+                  </th>
+                  <th>
+                    Effort
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                </tr>
+              </thead>
+              <tr *ngFor="let stat of pokemonData.stats|textFilter">
+                <td *ngFor='let key of stat[1] |textFilter'>
+                  <span *ngIf="key[0] != 'stat'"> {{key[1]}}</span>
+                  <span *ngFor='let key2 of key[1] |textFilter'>
+                    <span *ngIf="key2[0]==  'name'">{{key2[1]}}</span>
+                  </span>
+                </td>
+    
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+            <tr>
+                <td>Moves</td>
+                <td>A list of moves along with learn methods and level details pertaining to specific version groups.</td>
+                <td>
+                  <table>
+                    <thead>
+                      <tr>
+                          <th>
+                              Name
+                            </th>
+                        <th>
+                         Version Details
+                        </th>
+                      </tr>
+                    </thead>
+                    <tr *ngFor="let move of pokemonData.moves|textFilter">
+                      <td *ngFor='let key of move[1] |textFilter'>
+                        <span *ngIf="key[0] === 'version_group_details'">
+                          <table>
+                              <tr>
+                                  <th>
+                                      Level learned at
+                                  </th>
+                                <th>
+  
+                                    Move learn method
+                                </th>
+                                <th>
+                                    Version group
+                                </th>
+                              </tr>
+                              <tr  *ngFor='let key2 of key[1] |textFilter' >
+                                  <td *ngFor='let key3 of key2[1] |textFilter'>
+                                      <span *ngIf="key3[0] == 'level_learned_at'">{{key3[1]}}</span>
+                                       <span >
+                                           <span *ngFor='let key4 of key3[1] |textFilter'>
+                                               <span *ngIf="key4[0]==  'name'"> {{key4[1]}} </span>
+                                             </span>
+                                         </span> 
+     
+                                   </td>
+                              </tr>
+                          </table>
+
+                        </span>
+                        <span *ngFor='let key2 of key[1] |textFilter'>
+                          <span *ngIf="key2[0]==  'name'">{{key2[1]}}</span>
+                          <span *ngIf="key2[0]!=  ('name' || 'url')">
+                          </span>
+                        </span>
+                      </td>
+          
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
 
 </table>
-
-<!-- <div *ngFor='let key of pokemonData | textFilter'>
-  {{key[0]}} : <span *ngIf="!key[1].length"> {{key[1]}} </span>
-
-  <div *ngIf="key[1].length">
-    <div *ngFor='let key1 of key[1] |textFilter'>
-    {{key1}} {{key1[1].length}} 
-      <div *ngFor='let key2 of key1[1] |textFilter'>
-        {{key2}} {{key2[1].length}}
-        <div *ngFor='let key3 of key2[1] |textFilter'>
-          {{key3}} {{key3[1]}}
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</div> -->
+</div>
+<ng-template #other_content> Loading...</ng-template>

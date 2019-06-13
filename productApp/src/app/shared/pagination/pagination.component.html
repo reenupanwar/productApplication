@@ -1,13 +1,31 @@
-<div class="pagination" [class.disable]="!totalPage">
-    <span class="text"> Page</span> 
-   <div class="item">
-     <span
-        [ngClass] = "{'active' : paginatePrev && totalPage}" 
-        (click)="changePageNumber(currentPage,-1, paginatePrev)"> <span class="action" aria-hidden="true">&laquo;</span> </span>
-     <span class="pagination__count"> <span [class.active]="currentPage">{{currentPage}}</span>  / {{totalPage}} </span>
-     <span
-        [ngClass] = "{'active' : paginateNext && totalPage}" 
-        (click)="changePageNumber(currentPage,+1, paginateNext)"> <span class="action" aria-hidden="true">&raquo;</span></span>
+<div>
+   <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <div class="btn-group" role="group">
+         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Change Limit
+         </button>
+         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" (click)="changePageLimit(10)">10</a>
+            <a class="dropdown-item" (click)="changePageLimit(20)">20</a>
+            <a class="dropdown-item" (click)="changePageLimit(50)">50</a>
+            <a class="dropdown-item" (click)="changePageLimit(100)">100</a>
+         </div>
+      </div>
+      <div class="pagination ml-3" [class.disable]="!totalPage">
+            <span class="text"> Page</span>
+            <div class="item">
+               <span [ngClass]="{'active' : paginatePrev && totalPage}"
+                  (click)="changePageNumber(currentPage,-1, paginatePrev)"> <span class="action"
+                     aria-hidden="true">&laquo;</span> </span>
+               <span class="pagination__count"> <span [class.active]="currentPage">{{currentPage}}</span> / {{totalPage}}
+               </span>
+               <span [ngClass]="{'active' : paginateNext && totalPage}"
+                  (click)="changePageNumber(currentPage,+1, paginateNext)"> <span class="action"
+                     aria-hidden="true">&raquo;</span></span>
+            </div>
+         </div>
    </div>
- </div>
+  
 
+</div>

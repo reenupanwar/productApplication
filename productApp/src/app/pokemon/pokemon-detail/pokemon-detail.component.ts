@@ -17,10 +17,12 @@ export class PokemonDetailComponent implements OnInit {
   name:string;
   pokemonData: any = {};
   objectKeys = Object.keys;
+  loading:boolean;
 
  
 
   ngOnInit() { 
+    this.loading = true;
     this.name = this.route.snapshot.params.name;
     this.loadPokemonDetails();
     
@@ -56,6 +58,7 @@ export class PokemonDetailComponent implements OnInit {
   loadPokemonDetails() {
     this.restApi.getPokemonDetail(this.name).subscribe((data: {}) => {
     this.pokemonData = data;
+    this.loading = false;
     })
 
   }

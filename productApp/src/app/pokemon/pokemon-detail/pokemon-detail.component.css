@@ -1,0 +1,8 @@
+.pokemon {
+    table-layout: fixed;
+}
+
+.pokemon 
+    td {
+        word-break: break-all;
+    }

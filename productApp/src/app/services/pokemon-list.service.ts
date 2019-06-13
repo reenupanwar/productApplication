@@ -40,6 +40,15 @@ export class PokemonListService {
         catchError(this.handleError)
       )
   }
+  
+   // HttpClient API get() method => Fetch pokemon list
+   getPokemonwithLimit(limit): Observable<Pokemon> {
+    return this.http.get<Pokemon>(this.apiURL +'?limit='+ limit)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
   // HttpClient API get() method => Fetch pokemon
   getPokemonDetail(name:string): Observable<Pokemon> {
     return this.http.get<Pokemon>(this.apiURL + name)
