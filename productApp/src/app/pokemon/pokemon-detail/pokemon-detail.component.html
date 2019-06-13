@@ -1,0 +1,183 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Value</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Id</td>
+      <td>The identifier for this resource.</td>
+
+      <td><a> {{pokemonData.id}}</a></td>
+
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>The name for this resource.</td>
+
+      <td><a> {{pokemonData.name}}</a></td>
+
+    </tr>
+
+    <tr>
+      <td>Base experience</td>
+      <td>The base experience gained for defeating this Pokémon.</td>
+      <td><a> {{pokemonData.base_experience}}</a></td>
+    </tr>
+    <tr>
+      <td>Weight</td>
+      <td>
+        The weight of this Pokémon in hectograms.</td>
+      <td><a> {{pokemonData.weight}}</a></td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>The height of this Pokémon in decimetres.</td>
+      <td><a> {{pokemonData.height}}</a></td>
+    </tr>
+    <tr>
+      <td>is_default</td>
+      <td>
+        Set for exactly one Pokémon used as the default for each species.</td>
+      <td><a> {{pokemonData.is_default}}</a></td>
+    </tr>
+    <tr>
+      <td>order</td>
+      <td>
+        Order for sorting. Almost national order, except families are grouped together.</td>
+      <td><a> {{pokemonData.order}}</a></td>
+    </tr>
+    <tr>
+      <td>location_area_encounters</td>
+      <td>
+        A link to a list of location areas, as well as encounter details pertaining to specific versions.</td>
+      <td><a> {{pokemonData.location_area_encounters}}</a></td>
+    </tr>
+    <tr>
+      <td>Abilities:</td>
+      <td>A list of abilities this Pokémon could potentially have.</td>
+      <td>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Ability
+              </th>
+              <th>
+                is_hidden
+              </th>
+              <th>
+                Slot
+              </th>
+            </tr>
+          </thead>
+          <tr *ngFor="let ability of pokemonData.abilities|textFilter">
+            <td *ngFor='let key of ability[1] |textFilter'>
+              <span *ngIf="key[0] != 'ability'"> {{key[1]}}</span>
+              <span *ngFor='let key2 of key[1] |textFilter'>
+                <span *ngIf="key2[0]==  'name'">{{key2[1]}}</span>
+              </span>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>Game indices</td>
+      <td>A list of game indices relevent to Pokémon item by generation.</td>
+      <td>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Game Index
+              </th>
+              <th>
+                Version
+              </th>
+            </tr>
+          </thead>
+          <tr *ngFor="let game of pokemonData.game_indices|textFilter">
+            <td *ngFor='let key of game[1] |textFilter'>
+              <span *ngIf="key[0] != 'version'"> {{key[1]}}</span>
+              <span *ngFor='let key2 of key[1] |textFilter'>
+                <span *ngIf="key2[0] == 'name'">{{key2[1]}}</span>
+              </span>
+            </td>
+
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>Forms</td>
+      <td>A list of forms this Pokémon can take on.</td>
+      <td>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Url
+              </th>
+            </tr>
+          </thead>
+          <tr *ngFor="let form of pokemonData.forms|textFilter">
+            <td *ngFor='let key of form[1] |textFilter'>
+              {{key[1]}}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+        <td>Forms</td>
+        <td>A list of forms this Pokémon can take on.</td>
+        <td>
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Url
+                </th>
+              </tr>
+            </thead>
+            <tr *ngFor="let form of pokemonData.forms|textFilter">
+              <td *ngFor='let key of form[1] |textFilter'>
+                {{key[1]}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+</table>
+
+<div *ngFor='let key of pokemonData | textFilter'>
+  {{key[0]}} : <span *ngIf="!key[1].length"> {{key[1]}} </span>
+
+  <div *ngIf="key[1].length">
+    <div *ngFor='let key1 of key[1] |textFilter'>
+      <!-- {{key1}} {{key1[1].length}} -->
+      <div *ngFor='let key2 of key1[1] |textFilter'>
+        {{key2}} {{key2[1].length}}
+        <div *ngFor='let key3 of key2[1] |textFilter'>
+          {{key3}} {{key3[1]}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

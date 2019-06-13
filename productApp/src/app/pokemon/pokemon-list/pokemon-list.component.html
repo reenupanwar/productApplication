@@ -14,13 +14,13 @@
   <thead>
   <tr>
   <th scope="col">Name</th>
-  <th scope="col">Url</th>
+  <th scope="col">Details</th>
   </tr>
   </thead>
   <tbody>
   <tr (click)="getDetails(pokemon.name)" *ngFor="let pokemon of Pokemon.results| filter:searchText">
   <td>{{pokemon.name}}</td>
-  <td>{{pokemon.url}}</td>
+  <td><a (click)="getDetails(pokemon.name)"  href="JavaScript:Void(0)"> Deatils</a></td>
   </tr>
   </tbody>
   </table>

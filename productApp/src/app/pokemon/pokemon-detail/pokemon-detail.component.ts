@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonListService } from 'src/app/services/pokemon-list.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, throwError, ObservableInput } from 'rxjs';
+import * as _ from "lodash"
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -25,40 +26,36 @@ export class PokemonDetailComponent implements OnInit {
     
   }
 
+  key_value_pairs(obj) 
+   {
+    var keys = this._keys(obj);
+    var length = keys.length;
+    var pairs = Array(length);
+    for (var i = 0; i < length; i++) 
+    {
+      pairs[i] = [keys[i], obj[keys[i]]];
+
+    }
+    return pairs;
+  }
+
+ _keys(obj) 
+  {
+    if (!this.isObject(obj)) return [];
+    if (Object.keys) return Object.keys(obj);
+    var keys = [];
+    for (var key in obj) if (_.has(obj, key)) keys.push(key);
+    return keys;
+  }
+   isObject(obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+  }
+
+
   loadPokemonDetails() {
     this.restApi.getPokemonDetail(this.name).subscribe((data: {}) => {
-      console.log("data---", typeof data)
-    this.pokemonData = new Array([
-      {
-        color: "red",
-        value: "#f00"
-      },
-      {
-        color: "green",
-        value: "#0f0"
-      },
-      {
-        color: "blue",
-        value: "#00f"
-      },
-      {
-        color: "cyan",
-        value: "#0ff"
-      },
-      {
-        color: "magenta",
-        value: "#f0f"
-      },
-      {
-        color: "yellow",
-        value: "#ff0"
-      },
-      {
-        color: "black",
-        value: "#000"
-      }
-    ]);
-    console.log("this.pokemonData---", typeof this.pokemonData,this.pokemonData)
+    this.pokemonData = data;
     })
 
   }
