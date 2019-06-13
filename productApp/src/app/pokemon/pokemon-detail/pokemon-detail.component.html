@@ -163,12 +163,12 @@
 
 </table>
 
-<div *ngFor='let key of pokemonData | textFilter'>
+<!-- <div *ngFor='let key of pokemonData | textFilter'>
   {{key[0]}} : <span *ngIf="!key[1].length"> {{key[1]}} </span>
 
   <div *ngIf="key[1].length">
     <div *ngFor='let key1 of key[1] |textFilter'>
-      <!-- {{key1}} {{key1[1].length}} -->
+    {{key1}} {{key1[1].length}} 
       <div *ngFor='let key2 of key1[1] |textFilter'>
         {{key2}} {{key2[1].length}}
         <div *ngFor='let key3 of key2[1] |textFilter'>
@@ -180,4 +180,4 @@
     </div>
 
   </div>
-</div>
+</div> -->
