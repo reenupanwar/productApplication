@@ -7,30 +7,30 @@ import * as _ from "lodash"
 export class TextFilterPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    return this.key_value_pairs(value)
+    return this.objectToArray(value)
     
   }
 
-  key_value_pairs(obj) 
+  objectToArray(obj) 
    {
-    var keys = this._keys(obj);
-    var length = keys.length;
+    var property = this.properties(obj);
+    var length = property.length;
     var pairs = Array(length);
     for (var i = 0; i < length; i++) 
     {
-      pairs[i] = [keys[i], obj[keys[i]]];
+      pairs[i] = [property[i], obj[property[i]]];
 
     }
     return pairs;
   }
 
- _keys(obj) 
+  properties(obj) 
   {
     if (!this.isObject(obj)) return [];
     if (Object.keys) return Object.keys(obj);
-    var keys = [];
-    for (var key in obj) if (_.has(obj, key)) keys.push(key);
-    return keys;
+    var properties = [];
+    for (var key in obj) if (_.has(obj, key)) properties.push(key);
+    return properties;
   }
    isObject(obj) {
     var type = typeof obj;
